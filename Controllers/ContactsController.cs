@@ -17,7 +17,9 @@ namespace ContactManager.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var contacts = _context.Contacts.Include(c => c.Category);
+            var contacts = _context.Contacts
+                .Include(c => c.Category)
+                .OrderBy(c => c.FirstName);
             return View(await contacts.ToListAsync());
         }
 
@@ -63,9 +65,14 @@ namespace ContactManager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ContactId,FirstName,LastName,Phone,Email,Organization,CategoryId,DateAdded")] Contact contact)
+        public async Task<IActionResult> Edit(int id, [Bind("ContactId,FirstName,LastName,Phone,Email,Organization,CategoryId")] Contact contact)
         {
             if (id != contact.ContactId) return NotFound();
+
+            var originalContact = await _context.Contacts.AsNoTracking().FirstOrDefaultAsync(c => c.ContactId == id);
+            if (originalContact == null) return NotFound();
+            contact.DateAdded = originalContact.DateAdded;
+
             if (ModelState.IsValid)
             {
                 try

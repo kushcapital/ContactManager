@@ -66,8 +66,8 @@ namespace ContactManager.Migrations
                 columns: new[] { "ContactId", "CategoryId", "DateAdded", "Email", "FirstName", "LastName", "Organization", "Phone" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2025, 3, 5, 4, 23, 43, 549, DateTimeKind.Local).AddTicks(6950), "delores@example.com", "Delores", "Del Rio", null, "555-123-4567" },
-                    { 2, 2, new DateTime(2025, 3, 9, 4, 23, 43, 550, DateTimeKind.Local).AddTicks(5611), "john@example.com", "John", "Doe", null, "555-987-6543" }
+                    { 1, 1, new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "delores@example.com", "Delores", "Del Rio", null, "555-123-4567" },
+                    { 2, 2, new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "john@example.com", "John", "Doe", null, "555-987-6543" }
                 });
 
             migrationBuilder.CreateIndex(
